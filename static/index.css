@@ -1,0 +1,60 @@
+body{
+    background: rgba(170,170,170,0.2) url("logo.png") no-repeat center center fixed;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+a{
+    color:#9BDDFF;
+}
+
+.left,.right{
+    border:1px solid black;
+    float:left;
+    width: 42.5vw;
+    overflow:hidden;
+    padding-left:5%;
+    padding-top:2%;
+    height:50vh;
+    border-radius:18px;
+    margin-top:5%;
+    background-color:rgba(255,255,255,0.9);
+}
+
+.left{
+    margin-left:5%;
+}
+.right{
+    margin-left:5%;
+}
+
+.button{
+    color:#262626;
+    border:none;
+    padding: 2% 5%;
+    background-color:#C1EAFF;
+}
+
+input[type=text],
+input[type=password]{
+      background-color: white;
+      padding: 10px;
+      padding-left: 40px;
+      width: 300px;
+      color: black;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      border: none;
+}
+
+.username {
+      background: url("username.png") left center no-repeat;
+      background-position:5%;
+      
+}
+
+.password {
+      background: url("password.png") left center no-repeat;
+      background-position:5%;
+      
+}

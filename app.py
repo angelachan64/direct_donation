@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session
 from flask import redirect, url_for
+import os.path
 
 app = Flask(__name__)
 
@@ -8,9 +9,11 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
-
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
 if __name__ == "__main__":
    app.debug = True
    app.secret_key = "lmaooooo"
-   app.run(host="0.0.0.0", port=8000)
+   app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)

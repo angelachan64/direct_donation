@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
 
+{% block title %}Log In{% endblock %}
+
+
+{% block login %}#{% endblock %}
+{% block signup %}#{% endblock %}
+
 {% block content %}
 
-<form>
-    Login: <input type="text"></input>
-    <br>
-    Password: <input type="password"></input>
-</form>
+    <div class="left">
+        <h1>Log In</h1>
+        <br><br>
+        <form>
+            <input type="text" name="username" class="username" placeholder="Username (e.g. JohnDoe123)">
+            <br><br>
+            <input type="password" name="password" class="password" placeholder="Password (e.g. *********)">
+            <br><br>
+            <input type="submit" value="Log In" class="button">
+        </form>
+    </div>
+    <div class="right">
+        <h1>Sign Up</h1>
+        <br>
+        <form>
+            <input type="text" name="new_username" class="username" placeholder="Username (e.g. JohnDoe123)">
+            <br><br>
+            <input type="password" name="new_password" class="password" placeholder="Password (e.g. *********)">
+            <br><br>
+            <input type="password" name="repeat" class="password" placeholder="Repeat Password">
+            <br><br>
+            <input type="submit" value="Sign Up" class="button">
+        </form>
+    </div>
 
 {% endblock %}
