@@ -21,9 +21,12 @@
                     <a class="navbar-brand" href="/" style="margin-top:-6%;"><img src="../static/dd.png"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
+                    {% block nav %}
                     <li><a href="/">Home</a></li>
                     <li><a href="{% block login %}/login{% endblock %}">Log In</a></li>
                     <li><a href="{% block signup %}/login{% endblock %}">Sign Up</a></li>
+                    <li><a href="/home">Test Login</a></li>
+                    {% endblock %}
                 </ul>
             </div>
         </nav>

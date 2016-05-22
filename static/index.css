@@ -58,3 +58,28 @@ input[type=password]{
       background-position:5%;
       
 }
+
+.mission,.welcome,.pictures {
+    margin: auto;
+    width:90%;
+    padding:2%;
+}
+
+.welcome{
+    background-color:rgba(38,38,38,0.97);
+    color:#F4F3F2;
+}
+
+.pictures{
+    background-color:rgba(255,255,255,0.8);
+}
+
+.mission{
+    background-color: rgba(63, 63, 123,0.75);
+    color:#F4F3F2;
+}
+
+.about{
+    padding:2%;
+    font-size:large;
+}
