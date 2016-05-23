@@ -55,6 +55,11 @@ input[type=date]{
       
 }
 
+.email {
+    background: url("email.jpg") left center no-repeat;
+    background-position:5%;
+}
+
 .password {
       background: url("password.png") left center no-repeat;
       background-position:5%;
