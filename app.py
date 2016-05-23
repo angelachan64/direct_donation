@@ -46,7 +46,10 @@ def login():
         
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    if "user" in session:
+        return users.get_donation(session["user"])
+    else:
+        return render_template("home.html")
 
 
 @app.route("/payment", methods=['GET', 'POST'])
@@ -62,7 +65,7 @@ def payment():
         session["date"] = request.form["date"]
         session["orgs"] = users.get_orgs()
         session["org_id"] = request.form["org_id"]
-        users.make_donation(session["date"], session["name"], session["amount"], session["email"], 0)
+        users.make_donation(session["date"], session["name"], session["amount"], session["email"], session["org_id"])
         return redirect(url_for("transactions"))
 
     
