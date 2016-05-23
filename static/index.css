@@ -8,7 +8,7 @@ a{
 }
 
 .left,.right{
-    border:1px solid black;
+    border:1px solid rgba(38,38,38,0.3);
     float:left;
     width: 42.5vw;
     overflow:hidden;
@@ -35,15 +35,16 @@ a{
 }
 
 input[type=text],
-input[type=password]{
+input[type=password],
+input[type=number]{
       background-color: white;
       padding: 10px;
       padding-left: 40px;
       width: 300px;
       color: black;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
       border: none;
 }
 
