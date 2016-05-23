@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>This was your most recent Transaction</h1>
+
+<div style="font-size:25px">
+  <br>
+  <u>Name:</u> {{name}}
+  <br>
+  <u>Amount:</u> {{amount}}
+  <br>
+  <u>Email:</u> {{email}}
+  <br>
+  <u>Date:</u> {{date}}
+  <br>
+  
+  <br>
+  <br>
+  <u><a href="/payment">Make another payment</a></u>
+</div>
+
+{% endblock %}
