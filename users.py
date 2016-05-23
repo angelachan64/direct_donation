@@ -65,13 +65,13 @@ def get_orgs():
     return returner
 
 
-def make_donation(time, first, last, amount, email, organ_id):
+def make_donation(time, name, amount, email, organ_id):
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
-    q = 'CREATE TABLE IF NOT EXISTS donors (time DATETIME, first TEXT, last TEXT, amount INT, email TEXT, organ_id INT)'
+    q = 'CREATE TABLE IF NOT EXISTS donors (time DATETIME, name TEXT, amount INT, email TEXT, organ_id INT)'
     c.execute(q)
-    q = 'INSERT INTO donors (time, first, last, amount, email, organ_id) VALUES (?, ?, ?, ?, ?, ?)'
-    c.execute(q, (time, first, last, amount, email, organ_id))
+    q = 'INSERT INTO donors (time, name, amount, email, organ_id) VALUES (?, ?, ?, ?, ?)'
+    c.execute(q, (time, name, amount, email, organ_id))
     conn.commit()
     conn.close()
     return True
