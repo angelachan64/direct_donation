@@ -21,9 +21,9 @@ def create_user(username, password, repeat_pass, email):
                 return [False, "Your password must include a lowercase letter, an uppercase letter, a number, and at least of one the following symbols: '!@#$%^*'."]
     salt = uuid4().hex
     hash_password = sha512((password + salt) * 10000).hexdigest()
-    q = 'SELECT COUNT(*) FROM parent_database'
+    q = 'SELECT COUNT(*) FROM organization'
     num_rows = c.execute(q).fetchone()[0]
-    q = 'INSERT INTO parent_database (user_id, username, password, salt, email) VALUES (?, ?, ?, ?, ?)'
+    q = 'INSERT INTO organization (user_id, username, password, salt, email) VALUES (?, ?, ?, ?, ?)'
     c.execute(q, (num_rows + 1, username, hash_password, salt, email))
     conn.commit()
     conn.close()
