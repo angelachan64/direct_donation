@@ -7,10 +7,10 @@
   <form method="POST">
     <input type="text" name="name" placeholder="Name (e.g. John Doe)"></input>
     <br><br>
-    <select name="org_name">
+    <select name="org_id">
       <option value="" disabled selected>Select the organization</option>
-      {% for org in orgs %}
-      <option value="{{org}}">{{org}}</option>
+      {% for key in orgs.keys() %}
+      <option value="{{key}}">{{orgs[key]}}</option>
       {% endfor %}
     </select>
     

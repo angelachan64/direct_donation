@@ -52,9 +52,7 @@ def home():
 @app.route("/payment", methods=['GET', 'POST'])
 def payment():
     if request.method == "GET":
-        orgs_dict = users.get_orgs()
-        orgs = orgs_dict.values()
-        #print orgs
+        orgs = users.get_orgs()
         return render_template("payment.html", orgs=orgs)
     else:
         #THE INFO COLLECTED FOR PAYMENT
@@ -62,6 +60,8 @@ def payment():
         session["amount"] = request.form["amount"]
         session["email"] = request.form["email"]
         session["date"] = request.form["date"]
+        session["orgs"] = users.get_orgs()
+        session["org_id"] = request.form["org_id"]
         users.make_donation(session["date"], session["name"], session["amount"], session["email"], 0)
         return redirect(url_for("transactions"))
 
@@ -72,11 +72,15 @@ def transactions():
     a = session["amount"]
     e = session["email"]
     d = session["date"]
+    os = session["orgs"]
+    od = session["org_id"]
     return render_template("transactions.html", 
                            name=n,
                            amount=a,
                            email=e,
-                           date=d)
+                           date=d,
+                           orgs=os,
+                           org_id=od)
     
 
 if __name__ == "__main__":
