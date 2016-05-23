@@ -52,6 +52,7 @@ def home():
 @app.route("/payment", methods=['GET', 'POST'])
 def payment():
     if request.method == "GET":
+        print users.get_orgs()
         return render_template("payment.html")
     else:
         #THE INFO COLLECTED FOR PAYMENT

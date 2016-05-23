@@ -60,8 +60,8 @@ def get_orgs():
     q = 'SELECT user_id, username FROM organization'
     organs = c.execute(q)
     returner = {}
-    for i in range(len(organs)):
-        returner[organs[i][0]] = organs[i][1]
+    for i in organs:
+        returner[i[0]] = i[1]
     return returner
 
 
