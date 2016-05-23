@@ -11,11 +11,12 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/login", methods['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
         return render_template("login.html")
     else:
+        print "POST"
         if "username" in request.form:
             username = request.form["username"]
             password = request.form["password"]
@@ -26,15 +27,20 @@ def login():
             else:
                 redirect(url_for("login"))
         elif "new_username" in request.form:
+            print "CREATE"
             username = request.form["new_username"]
             password = request.form["new_password"]
             repeat = request.form["repeat"]
             email = request.form["email"]
+            print "Values"
             creator = users.create_user(username, password, repeat, email)
+            print creator
             if creator[0]:
+                print "C[0]"
                 session["user"] = users.valid_login(username, password)
                 redirect(url_for("home"))
             else:
+                print "C[1]"
                 redirect(url_for("login"))
             
         
