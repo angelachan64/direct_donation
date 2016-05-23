@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    session["user"] = -1
     return render_template("index.html")
 
 
@@ -23,9 +24,9 @@ def login():
             user_id =  users.valid_login(username, password)
             if user_id >= 0:
                 session["user"] = user_id
-                redirect(url_for("home"))
+                return redirect(url_for("home"))
             else:
-                redirect(url_for("login"))
+                return redirect(url_for("login"))
         elif "new_username" in request.form:
             print "CREATE"
             username = request.form["new_username"]
@@ -46,7 +47,7 @@ def login():
         
 @app.route("/home")
 def home():
-    if "user" in session:
+    if "user" in session and session["user"] >= -1:
         return users.get_donation(session["user"])
     else:
         return render_template("home.html")
