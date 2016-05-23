@@ -36,7 +36,8 @@ a{
 
 input[type=text],
 input[type=password],
-input[type=number]{
+input[type=number],
+input[type=date]{
       background-color: white;
       padding: 10px;
       padding-left: 40px;

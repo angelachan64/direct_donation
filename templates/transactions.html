@@ -1,23 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1>This was your most recent Transaction</h1>
-
-<div style="font-size:25px">
-  <br>
-  <u>Name:</u> {{name}}
-  <br>
-  <u>Amount:</u> {{amount}}
-  <br>
-  <u>Email:</u> {{email}}
-  <br>
-  <u>Date:</u> {{date}}
-  <br>
-  
-  <br>
-  <br>
-  <u><a href="/payment">Make another payment</a></u>
+<div class="pictures">
+  <h1>Thank you for your donation!</h1>
+  <h2>Review the information underneath.</h2>
+  <div style="font-size:25px">
+    <br>
+    <p>{{name}} at {{email}} has donated {{amount}} on {{date}}.</p>
+    <br>
+    <br>
+    <u><a href="/payment">Make another payment</a></u>
+  </div>
 </div>
 
 {% endblock %}
