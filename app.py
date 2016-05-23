@@ -43,14 +43,13 @@ def login():
             else:
                 print "C[1]"
                 return redirect(url_for("login"))
-            
-        
+
+
 @app.route("/home")
 def home():
     if "user" in session and session["user"] >= -1:
-        return users.get_donation(session["user"])
-    else:
-        return render_template("home.html")
+        print users.get_donation(session["user"])
+        return render_template("home.html", data_table=users.get_donation(session["user"]))
 
 
 @app.route("/payment", methods=['GET', 'POST'])
@@ -69,7 +68,7 @@ def payment():
         users.make_donation(session["date"], session["name"], session["amount"], session["email"], session["org_id"])
         return redirect(url_for("transactions"))
 
-    
+
 @app.route("/transactions")
 def transactions():
     n = session["name"]
@@ -78,14 +77,14 @@ def transactions():
     d = session["date"]
     os = session["orgs"]
     od = session["org_id"]
-    return render_template("transactions.html", 
+    return render_template("transactions.html",
                            name=n,
                            amount=a,
                            email=e,
                            date=d,
                            orgs=os,
                            org_id=od)
-    
+
 
 if __name__ == "__main__":
    app.debug = True

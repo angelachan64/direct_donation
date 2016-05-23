@@ -84,13 +84,13 @@ def get_donation(organ_id):
     c.execute(q)
     if not c.fetchone():
         conn.close()
-        return {}
+        return ""
     q = 'SELECT * FROM donors WHERE organ_id = ?'
     donations = c.execute(q, (organ_id,))
     returner = "<table> <tr> <th> Time </th> <th> Name </th> <th> Amount </th> <th> Email </th> </tr>"
     for donation in donations:
         returner += "<tr>"
         for data in donation:
-            returner += "<td>" + str(data) + "</td>"
+            returner += "<td>" + str(" " + str(data) + " ") + "</td>"
         returner += "</tr>"
     return returner + "</table>"
