@@ -38,10 +38,10 @@ def login():
             if creator[0]:
                 print "C[0]"
                 session["user"] = users.valid_login(username, password)
-                redirect(url_for("home"))
+                return redirect(url_for("home"))
             else:
                 print "C[1]"
-                redirect(url_for("login"))
+                return redirect(url_for("login"))
             
         
 @app.route("/home")
