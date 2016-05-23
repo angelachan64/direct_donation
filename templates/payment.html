@@ -7,6 +7,14 @@
   <form method="POST">
     <input type="text" name="name" placeholder="Name (e.g. John Doe)"></input>
     <br><br>
+    <select name="org_name">
+      <option value="" disabled selected>Select the organization</option>
+      {% for org in orgs %}
+      <option value="{{org}}">{{org}}</option>
+      {% endfor %}
+    </select>
+    
+    <br><br>
     <input type="number" name="amount" placeholder="Amount (e.g. 0)"></input>
     <br><br>
     <input type="text" name="email" placeholder="Email (e.g. johndoe123@email.com)"></input>
