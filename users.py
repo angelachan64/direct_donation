@@ -87,10 +87,10 @@ def get_donation(organ_id):
         return ""
     q = 'SELECT * FROM donors WHERE organ_id = ?'
     donations = c.execute(q, (organ_id,))
-    returner = "<table> <tr> <th> Time </th> <th> Name </th> <th> Amount </th> <th> Email </th> </tr>"
+    returner = '<table style="width:100%"><h2> <tr> <th> Time </th> <th> Name </th> <th> Amount </th> <th> Email </th> </tr></h2>'
     for donation in donations:
         returner += "<tr>"
-        for data in donation:
-            returner += "<td>" + str(" " + str(data) + " ") + "</td>"
+        for data in donation[:-1]:
+            returner += "<p><td>" + str(" " + str(data) + " ") + "</td></p>"
         returner += "</tr>"
     return returner + "</table>"
