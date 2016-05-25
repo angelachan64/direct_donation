@@ -8,6 +8,7 @@ paypalrestsdk.configure({
   "mode": "sandbox", # sandbox or live
   "client_id": "AdBEXpTl7isOqzXphRzogdnntjZsXRIZggbMBUk7iQdvhNFsoQe4UNYguPnt4Y86T_u9Kk_PnKCfSx8C",
   "client_secret": "EGwr3k_JvT_tthd-CUX4TQAtvOczlTNfV2Hmbk0Nz1C81vmVceahmCgthEeiqyCbYaMKFOciLIfq8rQN" })
+print "CONFIGURATION DONE"
 
 ###################
 # #CREATE PAYMENT #
@@ -42,6 +43,7 @@ if payment.create():
   print("Payment created successfully")
 else:
   print(payment.error)
+print "PAYMENT DONE"
 
 #######################
 # GET PAYMENT DETAILS #
@@ -52,3 +54,4 @@ payment = paypalrestsdk.Payment.find("PAY-57363176S1057143SKE2HO3A")
 # Get List of Payments
 payment_history = paypalrestsdk.Payment.all({"count": 10})
 payment_history.payments
+print "GET PAYMENT DETAILS DONE"
