@@ -1,3 +1,4 @@
+shell=true
 curl https://api-3t.sandbox.paypal.com/nvp \
   -s \
   --insecure \
