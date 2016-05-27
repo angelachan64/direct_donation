@@ -1,9 +1,10 @@
+shell=true
 curl https://api-3t.sandbox.paypal.com/nvp \
   -s \
   --insecure \
-  -d USER=platfo_1255077030_biz_api1.gmail.com \
-  -d PWD=abcd1234 \
-  -d SIGNATURE=Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf \
+  -d USER=57leonardo-business_api1.gmail.com \
+  -d PWD=QKQPM775NKL7K3T7 \
+  -d SIGNATURE=AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M \
   -d METHOD=TransactionSearch \
   -d VERSION=78 \
   -d TRXTYPE=Q \
