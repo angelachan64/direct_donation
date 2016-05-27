@@ -1,5 +1,7 @@
 import subprocess
 
+print "start"
+
 TransactionSearch="""shell=true
 curl https://api-3t.sandbox.paypal.com/nvp \
   -s \
@@ -19,11 +21,10 @@ SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
 STARTDATE="2015-01-01T0:0:0"
 ENDDATE="2017-01-03T24:0:0"
 
-print "start"
+
 SearchCall = subprocess.check_output(
     TransactionSearch % (USER, PWD, SIGNATURE, STARTDATE, ENDDATE),
     shell=True)
-print "end"
 
 def parse_call(call):
     d = {}
@@ -53,18 +54,34 @@ curl https://api-3t.sandbox.paypal.com/nvp \
 #USER="57leonardo-business_api1.gmail.com"
 #PWD="QKQPM775NKL7K3T7"
 #SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
-TRANSACTIONID=parse_call(call)["transactionids"][0]
+TRANSACTIONID=parse_call(SearchCall)["transactionids"][0]
+#___TODO___: handle more than one transaction
 
 DetailCall = subprocess.check_output(
     GetTransactionDetails % (USER, PWD, SIGNATURE, TRANSACTIONID),
     shell=True)
 
-#print parse_call(DetailCall)
+results = parse_call(DetailCall)
+# for x in results:
+#     print str(x) + ": " + str(results[x])
 
-for x in parse_call(DetailCall):
-    print str(x) + ": " + str(parse_call(DetailCall)[x])
-
-
+#print results
     
-    
-#First Name, Last Name, Email, Amount, Currency Code, TimeStamp, PAYMENT STATUS
+
+
+
+#We Want: First Name, Last Name, Email, Amount, Currency Code, TimeStamp, Payment Status
+output = {}
+output["firstname"] = results["FIRSTNAME"]
+output["lastname"] = results["LASTNAME"]
+output["email"] = results["EMAIL"]
+output["amount"] = results["AMT"]
+output["currencycode"] = results["CURRENCYCODE"]
+output["timestamp"] = results["TIMESTAMP"]
+output["paymentstatus"] = results["PAYMENTSTATUS"]
+#print output
+for x in output:
+    print str(x) + ": " + str(output[x])
+
+
+print "end"
