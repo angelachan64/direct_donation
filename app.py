@@ -3,6 +3,7 @@ from flask import redirect, url_for
 from flask import request, session, redirect
 import os.path
 import users
+import paypal
 
 app = Flask(__name__)
 
@@ -77,6 +78,9 @@ def transactions():
     d = session["date"]
     os = session["orgs"]
     od = session["org_id"]
+    
+    d = paypal.getStats() #ALL THE STATS (list of dictionaries)
+
     return render_template("transactions.html",
                            name=n,
                            amount=a,
