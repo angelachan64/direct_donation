@@ -97,6 +97,44 @@ def getStats():
     return ret
 
 
-print getStats()
+#print getStats()
+
+def getStatsHTMLTable():
+    data = getStats()
+    ret = ""
+    ret += "<table>"
+    labels = ["First Name",
+              "Last Name",
+              "ACK",
+              "Currency Code",
+              "Payment Status",
+              "Address Status",
+              "Amount",
+              "Address Owner",
+              "Timestamp",
+              "Email"]
+    ret += "<tr>"
+    for l in labels:
+        ret += "<th>"
+        ret += l
+        ret += "</th>"
+    ret += "</tr>"
+    for a in data:
+        #ret += str(a) + "\n\n"
+        ret += "<tr>"
+        ret += "\n"
+        for b in a:
+            #if (b != "Error"):
+                #ret += str(b) + " : " + str( a[b] ) + "\n"
+                ret += "<td>"
+                ret += str( a[b] )
+                ret += "</td>"
+                ret += "\n"
+        ret += "</tr>"
+        ret += "\n"
+    ret += "</table>"
+    return ret
+
+print getStatsHTMLTable()
 
 print "end"

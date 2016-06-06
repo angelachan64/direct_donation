@@ -50,7 +50,10 @@ def login():
 def home():
     if "user" in session and session["user"] >= -1:
         print users.get_donation(session["user"])
-        return render_template("home.html", data_table=users.get_donation(session["user"]))
+        #return render_template("home.html", data_table=users.get_donation(session["user"]))
+        return render_template("home.html", data_table=paypal.getStatsHTMLTable())
+            
+
 
 
 @app.route("/payment", methods=['GET', 'POST'])
@@ -79,8 +82,6 @@ def transactions():
     os = session["orgs"]
     od = session["org_id"]
     
-    d = paypal.getStats() #ALL THE STATS (list of dictionaries)
-
     return render_template("transactions.html",
                            name=n,
                            amount=a,
