@@ -1,4 +1,5 @@
 import subprocess
+import urllib
 
 print "start"
 
@@ -124,10 +125,10 @@ def getStatsHTMLTable():
         ret += "<tr>"
         ret += "\n"
         for b in a:
-            #if (b != "Error"):
+            if (b != "Error"):
                 #ret += str(b) + " : " + str( a[b] ) + "\n"
                 ret += "<td>"
-                ret += str( a[b] )
+                ret += str( urllib.unquote(a[b]).decode('utf8') )
                 ret += "</td>"
                 ret += "\n"
         ret += "</tr>"
