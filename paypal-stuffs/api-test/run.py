@@ -1,7 +1,8 @@
 import subprocess
 
+print "start"
 
-script="""shell=true
+TransactionSearch="""shell=true
 curl https://api-3t.sandbox.paypal.com/nvp \
   -s \
   --insecure \
@@ -14,6 +15,7 @@ curl https://api-3t.sandbox.paypal.com/nvp \
   -d STARTDATE=%s \
   -d ENDDATE=%s
 """ 
+# CHANGE THE FOLLOWING INFO FOR EVERY INDIVIDUAL USER
 USER="57leonardo-business_api1.gmail.com"
 PWD="QKQPM775NKL7K3T7"
 SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
@@ -21,16 +23,71 @@ STARTDATE="2015-01-01T0:0:0"
 ENDDATE="2017-01-03T24:0:0"
 
 
-
-print "start"
-call = subprocess.check_output(script % (USER, PWD, SIGNATURE, STARTDATE, ENDDATE), shell=True)
-print "end"
+SearchCall = subprocess.check_output(
+    TransactionSearch % (USER, PWD, SIGNATURE, STARTDATE, ENDDATE),
+    shell=True)
 
 def parse_call(call):
     d = {}
+    d["transactionids"] = []
     for x in call.split("&"):
         data = x.split("=")
+        if ("TRANSACTIONID" in data[0]):
+            d["transactionids"].append( data[1] )
         d[ data[0] ] = data[1]
     return d
 
-print parse_call(call)
+#print parse_call(SearchCall)
+#print parse_call(SearchCall)["transactionids"]
+
+
+GetTransactionDetails="""shell=true
+curl https://api-3t.sandbox.paypal.com/nvp \
+  -s \
+  --insecure \
+  -d USER=%s \
+  -d PWD=%s \
+  -d SIGNATURE=%s \
+  -d METHOD=GetTransactionDetails \
+  -d VERSION=78 \
+  -d TRANSACTIONID=%s  
+""" 
+#USER="57leonardo-business_api1.gmail.com"
+#PWD="QKQPM775NKL7K3T7"
+#SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
+
+#___TODO___: handle more than one transaction
+for i in parse_call(SearchCall)["transactionids"]:
+    TRANSACTIONID=i
+    DetailCall = subprocess.check_output(
+        GetTransactionDetails%(USER, PWD, SIGNATURE, TRANSACTIONID),
+        shell=True)
+    results = parse_call(DetailCall)
+    #for x in results:
+    #     print str(x) + ": " + str(results[x])
+    #print results
+    
+    #We Want: First Name, Last Name, Email, Amount, Currency Code, TimeStamp, Payment Status
+    if (results["ACK"] == "Success"):
+        output = {}
+        output["firstname"] = results["FIRSTNAME"]
+        output["lastname"] = results["LASTNAME"]
+        output["email"] = results["EMAIL"]
+        output["amount"] = results["AMT"]
+        output["currencycode"] = results["CURRENCYCODE"]
+        output["timestamp"] = results["TIMESTAMP"]
+        output["paymentstatus"] = results["PAYMENTSTATUS"]
+        output["ack"] = results["ACK"]
+        output["addstatus"] = results["ADDRESSSTATUS"]
+        output["addowner"] = results["ADDRESSOWNER"]
+        #print output
+        for x in output:
+            print str(x) + ": " + str(output[x])
+        print
+    else:
+        print
+        print "Transaction %s has failed (ACK result: %s)" % (i, results["ACK"])
+        print
+
+
+print "end"

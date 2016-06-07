@@ -3,6 +3,7 @@ from flask import redirect, url_for
 from flask import request, session, redirect
 import os.path
 import users
+import paypal
 
 app = Flask(__name__)
 
@@ -49,7 +50,10 @@ def login():
 def home():
     if "user" in session and session["user"] >= -1:
         print users.get_donation(session["user"])
-        return render_template("home.html", data_table=users.get_donation(session["user"]))
+        #return render_template("home.html", data_table=users.get_donation(session["user"]))
+        return render_template("home.html", data_table=paypal.getStatsHTMLTable())
+            
+
 
 
 @app.route("/payment", methods=['GET', 'POST'])
@@ -77,6 +81,7 @@ def transactions():
     d = session["date"]
     os = session["orgs"]
     od = session["org_id"]
+    
     return render_template("transactions.html",
                            name=n,
                            amount=a,
