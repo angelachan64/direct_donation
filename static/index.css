@@ -14,7 +14,7 @@ a{
     overflow:hidden;
     padding-left:5%;
     padding-top:2%;
-    height:460px;
+    height:600px;
     border-radius:18px;
     margin-top:5%;
     background-color:rgba(255,255,255,0.9);
@@ -95,6 +95,7 @@ input[type=date]{
 .carousel{
     height:626px;
     margin-bottom:20px;
+    width:100%;
 }
 
 .carousel-control.left, .carousel-control.right {
@@ -121,7 +122,6 @@ input[type=date]{
     overflow: auto;
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
     min-height:626px;
 }
 
@@ -130,6 +130,7 @@ input[type=date]{
   margin:0 auto;
   top: 0;
   height: 626px;
+  width: auto;
 }
 
 table {
@@ -148,4 +149,28 @@ tr:nth-child(odd){
 }
 tr:nth-child(even){
     background-color: #CAFDFF;
+}
+
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    left:0;
+    opacity: 0;
+    z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
 }
