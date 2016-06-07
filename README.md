@@ -3,7 +3,7 @@ Spring 2016: SoftDev Final Project for Psuedo Client Sterr
 
 # Deployment Guide
 
-1) $ python app.py
+1) `$ python app.py`
 
 2) done
 
