@@ -51,6 +51,10 @@ def home():
     if "user" in session and session["user"] >= -1:
         print users.get_donation(session["user"])
         #return render_template("home.html", data_table=users.get_donation(session["user"]))
+        USER="57leonardo-business_api1.gmail.com"
+        PWD="QKQPM775NKL7K3T7"
+        SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
+        paypal.setParams(USER, PWD, SIGNATURE)
         return render_template("home.html", data_table=paypal.getStatsHTMLTable())
             
 

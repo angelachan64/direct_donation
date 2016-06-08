@@ -7,11 +7,21 @@ print "start"
 #######################################################
 # CHANGE THE FOLLOWING INFO FOR EVERY INDIVIDUAL USER #
 #######################################################
-USER="57leonardo-business_api1.gmail.com"
-PWD="QKQPM775NKL7K3T7"
-SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
+
+USER=""
+PWD=""
+SIGNATURE=""
+
 STARTDATE="2015-01-01T0:0:0"
 ENDDATE="2017-01-03T24:0:0"
+
+def setParams(user, pwd, signature):
+    global USER
+    USER = user
+    global PWD
+    PWD = pwd
+    global SIGNATURE
+    SIGNATURE = signature
 
 
 
