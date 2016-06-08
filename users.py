@@ -48,7 +48,7 @@ def valid_login(username, password):
     conn.close()
     return -1
 
-
+"""
 def get_orgs():
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
@@ -63,6 +63,7 @@ def get_orgs():
     for i in organs:
         returner[i[0]] = i[1]
     return returner
+"""
 
 
 def make_donation(time, name, amount, email, organ_id):
@@ -94,3 +95,20 @@ def get_donation(organ_id):
             returner += "<p><td>" + str(" " + str(data) + " ") + "</td></p>"
         returner += "</tr>"
     return returner + "</table>"
+
+
+def get_paypal_info(organ_id):
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()
+    q = 'SELECT name FROM sqlite_master WHERE TYPE = "table" AND NAME = "organization"'
+    c.execute(q)
+    if not c.fetchone():
+        conn.close()
+        return -1
+    q = 'SELECT pppun, ppp, ppsig FROM organization WHERE user_id = ?'
+    ppinfo = c.execute(q, (organ_id,)).fetchone()
+    conn.close()
+    returner = []
+    for data in ppinfo:
+        returner.append(data)
+    return returner

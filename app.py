@@ -57,27 +57,28 @@ def home():
         print users.get_donation(session["user"])
         #return render_template("home.html", data_table=users.get_donation(session["user"]))
         return render_template("home.html", data_table=paypal.getStatsHTMLTable())
-            
-
+    else:
+        return render_template("login.html", loginerr="Please login first!")
 
 
 @app.route("/payment", methods=['GET', 'POST'])
 def payment():
-    if request.method == "GET":
-        orgs = users.get_orgs()
-        return render_template("payment.html", orgs=orgs)
+    if "user" in session and session["user"] >= -1:
+        if request.method == "GET":
+            return render_template("payment.html")
+        else:
+            #THE INFO COLLECTED FOR PAYMENT
+            fname = request.form["fname"]
+            lname = request.form["lname"]
+            amount = request.form["amount"]
+            email = request.form["email"]
+            date = request.form["date"]
+            users.make_donation(date, fname + " " + lname, amount, email, session["user"])
+            return redirect(url_for("transactions"))
     else:
-        #THE INFO COLLECTED FOR PAYMENT
-        session["name"] = request.form["name"]
-        session["amount"] = request.form["amount"]
-        session["email"] = request.form["email"]
-        session["date"] = request.form["date"]
-        session["orgs"] = users.get_orgs()
-        session["org_id"] = request.form["org_id"]
-        users.make_donation(session["date"], session["name"], session["amount"], session["email"], session["org_id"])
-        return redirect(url_for("transactions"))
+        return render_template("login.html", loginerr="Please login first!")
 
-
+    
 @app.route("/transactions")
 def transactions():
     n = session["name"]
