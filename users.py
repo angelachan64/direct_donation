@@ -24,7 +24,7 @@ def create_user(username, password, repeat_pass, email, ppun, ppp, ppsig):
     q = 'SELECT COUNT(*) FROM organization'
     num_rows = c.execute(q).fetchone()[0]
     q = 'INSERT INTO organization (user_id, username, password, salt, email, ppun, ppp, ppsig) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-    c.execute(q, (num_rows + 1, username, hash_password, salt, email))
+    c.execute(q, (num_rows + 1, username, hash_password, salt, email, ppun, ppp, ppsig))
     conn.commit()
     conn.close()
     return [True, "Successful Account Creation"]
