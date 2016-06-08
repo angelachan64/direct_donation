@@ -105,7 +105,7 @@ def get_paypal_info(organ_id):
     if not c.fetchone():
         conn.close()
         return -1
-    q = 'SELECT pppun, ppp, ppsig FROM organization WHERE user_id = ?'
+    q = 'SELECT ppun, ppp, ppsig FROM organization WHERE user_id = ?'
     ppinfo = c.execute(q, (organ_id,)).fetchone()
     conn.close()
     returner = []
