@@ -27,15 +27,20 @@ def login():
                 session["user"] = user_id
                 return redirect(url_for("home"))
             else:
-                return redirect(url_for("login"))
+                return render_template("login.html",
+                                       loginerr="Incorrect Username or Password")
         elif "new_username" in request.form:
             print "CREATE"
             username = request.form["new_username"]
             password = request.form["new_password"]
             repeat = request.form["repeat"]
             email = request.form["email"]
+            ppun = request.form["ppun"]
+            ppp = request.form["ppp"]
+            ppsig = request.form["ppsig"]
             print "Values"
-            creator = users.create_user(username, password, repeat, email)
+            creator = users.create_user(username, password, repeat, email,
+                                        ppun, ppp, ppsig)
             print creator
             if creator[0]:
                 print "C[0]"
@@ -43,7 +48,7 @@ def login():
                 return redirect(url_for("home"))
             else:
                 print "C[1]"
-                return redirect(url_for("login"))
+                return render_template("login.html", signuperr=creator[1])
 
 
 @app.route("/home")
@@ -92,6 +97,6 @@ def transactions():
 
 
 if __name__ == "__main__":
-   app.debug = True
-   app.secret_key = "lmaooooo"
-   app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
+    app.debug = True
+    app.secret_key = "lmaooooo"
+    app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)

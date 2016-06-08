@@ -4,10 +4,10 @@ from uuid import uuid4  # Salting for Passwords
 from re import search  # Regex
 
 
-def create_user(username, password, repeat_pass, email):
+def create_user(username, password, repeat_pass, email, ppun, ppp, ppsig):
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
-    q = 'CREATE TABLE IF NOT EXISTS organization (user_id INT, username TEXT, password INT, salt INT, email TEXT)'
+    q = 'CREATE TABLE IF NOT EXISTS organization (user_id INT, username TEXT, password INT, salt INT, email TEXT, ppun TEXT, ppp TEXT, ppsig TEXT)'
     c.execute(q)
     q = 'SELECT username, email FROM organization'
     users = c.execute(q)
@@ -23,7 +23,7 @@ def create_user(username, password, repeat_pass, email):
     hash_password = sha512((password + salt) * 10000).hexdigest()
     q = 'SELECT COUNT(*) FROM organization'
     num_rows = c.execute(q).fetchone()[0]
-    q = 'INSERT INTO organization (user_id, username, password, salt, email) VALUES (?, ?, ?, ?, ?)'
+    q = 'INSERT INTO organization (user_id, username, password, salt, email, ppun, ppp, ppsig) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
     c.execute(q, (num_rows + 1, username, hash_password, salt, email))
     conn.commit()
     conn.close()
