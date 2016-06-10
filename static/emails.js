@@ -14,7 +14,7 @@ function getEmails() {
     }
     
     var target = document.getElementById("emails-list");
-    target.innerHTML = l;
+    target.innerHTML = "<table><tr><td><h3>" + l + "</h3></tr></td></table>";
 }
 
 document.getElementById("emails-button").addEventListener("click",getEmails);
