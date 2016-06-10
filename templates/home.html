@@ -1,26 +1,32 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-<li><p class="navbar-text" style="color:#9BDDFF;">Welcome, Organization!</p></li>
-<li><a href="/">Log Out</a></li>
+<li><p class="navbar-text" style="color:#9BDDFF;">
+    Welcome, Organization!
+</p></li><li><a href="/">
+    Log Out
+</a></li>
 {% endblock %}
 
 {% block content %}
-
 <div class="pictures">
-    <h1 style="display:inline-block;">Check Your Latest Donations</h1>
-    <a href="/payment" class="button" style="float: right;">Manually Input a Donation</a>
+  <h1 style="display:inline-block;">Check Your Latest Donations</h1>
+  <a href="/payment" class="button" style="float: right;">
+    Manually Input a Donation</a>
 </div>
+
 <br>
 <div class="pictures">
   {{ data_table | safe }}
   <br>
-  
   <center>
+    <!-- Retrieve Emails -->
     <button type="button" id="emails-button"> Retrieve All Emails </button>
     <p id="emails-list"></p>
+    <!-- Generate Donut Graph -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="../static/Donut3D.js"></script>
+    <script src="../static/DonutData.js"></script>
   </center>
 </div>
-
-
 {% endblock %}
