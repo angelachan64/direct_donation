@@ -112,18 +112,19 @@ def getPaypalInfo(user,pwd,signature):
                   #"ACK",
                   "Currency Code",
                   "Payment Status",
-                  "Address Status",
+                  "Address",
                   "Amount",
                   "Address Owner",
                   "Timestamp",
-                  "Email"]
+                  "Email",
+                  "Payment Type"]
         ret += "<tr>"
         for l in labels:
             ret += "<th>"
             ret += l
             ret += "</th>"
         ret += "</tr>"
-        for a in data:
+        for a in data[:-1]:
             #ret += str(a) + "\n\n"
             ret += "<tr>"
             ret += "\n"
@@ -134,9 +135,9 @@ def getPaypalInfo(user,pwd,signature):
                     ret += str( urllib.unquote(a[b]).decode('utf8') )
                     ret += "</td>"
                     ret += "\n"
-            ret += "</tr>"
+            ret += "<td>Paypal</td></tr>"
             ret += "\n"
-        ret += "</table>"
+        #ret += "</table>"
         return ret
 
     return getStatsHTMLTable()

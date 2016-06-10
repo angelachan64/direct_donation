@@ -54,13 +54,11 @@ def login():
 @app.route("/home")
 def home():
     if "user" in session and session["user"] >= -1:
-        print users.get_donation(session["user"])
-        #return render_template("home.html", data_table=users.get_donation(session["user"]))
         l = users.get_paypal_info(session["user"])
-        return render_template("home.html", data_table=paypal.getPaypalInfo(
-            l[0], l[1], l[2]))
+        tabler = paypal.getPaypalInfo(l[0], l[1], l[2])
+        tabler += users.get_donation(session["user"])
+        return render_template("home.html", data_table=tabler)
         #return render_template("home.html", data_table=paypal.getPaypalInfo("57leonardo-business_api1.gmail.com", "QKQPM775NKL7K3T7", "AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M")
-
     else:
         return render_template("login.html", loginerr="Please login first!")
 
@@ -74,11 +72,16 @@ def payment():
             #THE INFO COLLECTED FOR PAYMENT
             fname = request.form["fname"]
             lname = request.form["lname"]
+            ctype = request.form["ctype"]
+            status = request.form["complete"]
+            address = request.form["address"]
             amount = request.form["amount"]
-            email = request.form["email"]
+            owner = request.form["owner"]
             date = request.form["date"]
-            users.make_donation(date, fname + " " + lname, amount, email, session["user"])
-            return redirect(url_for("transactions"))
+            email = request.form["email"]
+            paytype = request.form["paytype"]
+            users.make_donation(fname, lname, ctype, status, address, amount, owner, date, email, paytype, session["user"])
+            return redirect(url_for("home"))
     else:
         return render_template("login.html", loginerr="Please login first!")
 

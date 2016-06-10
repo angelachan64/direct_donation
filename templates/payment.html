@@ -10,20 +10,28 @@
   <h1>Make a Payment</h1>
   <br>
   <form method="POST">
-    <input type="text" name="fname" placeholder="First Name (e.g. John)"></input>
+    <input type="text" name="fname" placeholder="First Name (e.g. John)" required></input>
+    <input type="text" name="lname" placeholder="Last Name (e.g. Doe)" required></input>
     <br><br>
-    <input type="text" name="lname" placeholder="Last Name (e.g. Doe)"></input>
+    <input type="text" name="ctype" placeholder="Currency Type (e.g. USD)" required></input>
+    <input type="number" name="amount" placeholder="Amount (e.g. 0)" required></input>
     <br><br>
-    <input type="text" name="ctype" placeholder="Currency Type (e.g. USD)"></input>
+    <input type="text" name="email" placeholder="Email (e.g. johndoe123@email.com)" required></input>
     <br><br>
-    <input type="number" name="amount" placeholder="Amount (e.g. 0)"></input>
+    Timestamp: <input type="date" name="date" placeholder="01/01/2016" value="Date" required></input>
     <br><br>
-    <input type="text" name="email" placeholder="Email (e.g. johndoe123@email.com)"></input>
+    <p>Payment Status: Complete <input type="radio" name="complete" value="complete" checked> Incomplete <input type="radio" name="complete" value="incomplete"></p>
     <br><br>
-    Timestamp: <input type="date" name="date" placeholder="01/01/2016" value="Date"></input>
+    <p>Payment Type:
+      Cash <input type="radio" name="paytype" value="Cash" checked>
+      Credit <input type="radio" name="paytype" value="Credit">
+      Debit <input type="radio" name="paytype" value="Debit">
+      Check <input type="radio" name="paytype" value="Check">
+    </p>
     <br><br>
-    <p>Acknowledged <input type="checkbox" name="ACK"></p>
-    <p>Payment Status: Complete <input type="checkbox" name="complete"> Incomplete <input type="checkbox" name="incomplete"></p>
+    <input type="text" name="address" placeholder="Address (e.g. 345 Chambers St, New York, NY, 10282)" required></input>
+    <input type="text" name="owner" placeholder="Address Owner (e.g. John Doe)" required></input>
+    <br><br>
     <input type="submit" class="button" name="sub" value="Submit">
   </form>
 </div>

@@ -66,13 +66,13 @@ def get_orgs():
 """
 
 
-def make_donation(time, name, amount, email, organ_id):
+def make_donation(fname, lname, ctype, status, address, amount, owner, date, email, paytype, organ_id):
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
-    q = 'CREATE TABLE IF NOT EXISTS donors (time DATETIME, name TEXT, amount INT, email TEXT, organ_id INT)'
+    q = 'CREATE TABLE IF NOT EXISTS donors (fname TEXT, lname TEXT, ctype TEXT, status TEXT, address TEXT, amount NUMERIC, owner TEXT, date TEXT, email TEXT, paytype TEXT, organ_id INT)'
     c.execute(q)
-    q = 'INSERT INTO donors (time, name, amount, email, organ_id) VALUES (?, ?, ?, ?, ?)'
-    c.execute(q, (time, name, amount, email, organ_id))
+    q = 'INSERT INTO donors (fname, lname, ctype, status, address, amount, owner, date, email, paytype, organ_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    c.execute(q, (fname, lname, ctype, status, address, amount, owner, date, email, paytype, organ_id))
     conn.commit()
     conn.close()
     return True
@@ -85,15 +85,15 @@ def get_donation(organ_id):
     c.execute(q)
     if not c.fetchone():
         conn.close()
-        return ""
+        return "</table>"
     q = 'SELECT * FROM donors WHERE organ_id = ?'
     donations = c.execute(q, (organ_id,))
-    returner = '<table style="width:100%"><h2> <tr> <th> Time </th> <th> Name </th> <th> Amount </th> <th> Email </th> </tr></h2>'
+    returner = ""
     for donation in donations:
         returner += "<tr>"
         for data in donation[:-1]:
-            returner += "<p><td>" + str(" " + str(data) + " ") + "</td></p>"
-        returner += "</tr>"
+            returner += "<td>" + str(" " + str(data) + " ") + "</td>"
+        returner += "</tr>\n"
     return returner + "</table>"
 
 
