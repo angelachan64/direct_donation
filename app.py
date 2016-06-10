@@ -106,6 +106,7 @@ def transactions():
 
 
 if __name__ == "__main__":
-    app.debug = True
+    # app.debug = True
     app.secret_key = urandom(32)
-    app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
+    #app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
+    app.run()
