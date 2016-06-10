@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session
 from flask import redirect, url_for
 from flask import request, session, redirect
-import os.path
+import os.path, os.urandom
 import users
 import paypal
 
@@ -53,7 +53,7 @@ def login():
 
 @app.route("/home")
 def home():
-    if "user" in session and session["user"] >= -1:
+    if "user" in session and session["user"] > -1:
         l = users.get_paypal_info(session["user"])
         tabler = paypal.getPaypalInfo(l[0], l[1], l[2])
         tabler += users.get_donation(session["user"])
@@ -65,7 +65,7 @@ def home():
 
 @app.route("/payment", methods=['GET', 'POST'])
 def payment():
-    if "user" in session and session["user"] >= -1:
+    if "user" in session and session["user"] > -1:
         if request.method == "GET":
             return render_template("payment.html")
         else:
@@ -106,5 +106,5 @@ def transactions():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = "lmaooooo"
+    app.secret_key = os.urandom(32)
     app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
