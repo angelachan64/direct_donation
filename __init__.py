@@ -7,17 +7,21 @@ import users
 import paypal
 
 app = Flask(__name__)
+indexfile = os.path.join(os.path.dirname(__file__), "index.html")
+loginfile = os.path.join(os.path.dirname(__file__), "login.html")
+homefile = os.path.join(os.path.dirname(__file__), "home.html")
 
 @app.route("/")
 def index():
     session["user"] = -1
-    return render_template("index.html")
+    print indexfile
+    return render_template(indexfile)
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template(loginfile)
     else:
         print "POST"
         if "username" in request.form:
@@ -28,7 +32,7 @@ def login():
                 session["user"] = user_id
                 return redirect(url_for("home"))
             else:
-                return render_template("login.html",
+                return render_template(loginfile,
                                        loginerr="Incorrect Username or Password")
         elif "new_username" in request.form:
             print "CREATE"
@@ -49,7 +53,7 @@ def login():
                 return redirect(url_for("home"))
             else:
                 print "C[1]"
-                return render_template("login.html", signuperr=creator[1])
+                return render_template(loginfile, signuperr=creator[1])
 
 
 @app.route("/home")
@@ -58,9 +62,9 @@ def home():
         l = users.get_paypal_info(session["user"])
         tabler = paypal.getPaypalInfo(l[0], l[1], l[2])
         tabler += users.get_donation(session["user"])
-        return render_template("home.html", data_table=tabler)
+        return render_template(homefile, data_table=tabler)
     else:
-        return render_template("login.html", loginerr="Please login first!")
+        return render_template(loginfile, loginerr="Please login first!")
 
 
 @app.route("/payment", methods=['GET', 'POST'])
@@ -83,29 +87,10 @@ def payment():
             users.make_donation(fname, lname, ctype, status, address, amount, owner, date, email, paytype, session["user"])
             return redirect(url_for("home"))
     else:
-        return render_template("login.html", loginerr="Please login first!")
-
-    
-@app.route("/transactions")
-def transactions():
-    n = session["name"]
-    a = session["amount"]
-    e = session["email"]
-    d = session["date"]
-    os = session["orgs"]
-    od = session["org_id"]
-    
-    return render_template("transactions.html",
-                           name=n,
-                           amount=a,
-                           email=e,
-                           date=d,
-                           orgs=os,
-                           org_id=od)
-
+        return render_template(loginfile, loginerr="Please login first!")
 
 if __name__ == "__main__":
-    # app.debug = True
+    app.debug = True
     app.secret_key = urandom(32)
-    # app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
-    app.run()
+    app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
+    #app.run()

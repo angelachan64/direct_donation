@@ -2,10 +2,11 @@ import sqlite3  # Database
 from hashlib import sha512  # Hashing for Passwords
 from uuid import uuid4  # Salting for Passwords
 from re import search  # Regex
+import os.path
 
-
+databasepath = os.path.join(os.path.dirname(__file__), "data.db")
 def create_user(username, password, repeat_pass, email, ppun, ppp, ppsig):
-    conn = sqlite3.connect("data.db")
+    conn = sqlite3.connect(databasepath)
     c = conn.cursor()
     q = 'CREATE TABLE IF NOT EXISTS organization (user_id INT, username TEXT, password INT, salt INT, email TEXT, ppun TEXT, ppp TEXT, ppsig TEXT)'
     c.execute(q)
@@ -31,7 +32,7 @@ def create_user(username, password, repeat_pass, email, ppun, ppp, ppsig):
 
 
 def valid_login(username, password):
-    conn = sqlite3.connect("data.db")
+    conn = sqlite3.connect(databasepath)
     c = conn.cursor()
     q = 'SELECT name FROM sqlite_master WHERE TYPE = "table" AND NAME = "organization"'
     c.execute(q)
@@ -48,26 +49,9 @@ def valid_login(username, password):
     conn.close()
     return -1
 
-"""
-def get_orgs():
-    conn = sqlite3.connect("data.db")
-    c = conn.cursor()
-    q = 'SELECT name FROM sqlite_master WHERE TYPE = "table" AND NAME = "organization"'
-    c.execute(q)
-    if not c.fetchone():
-        conn.close()
-        return {}
-    q = 'SELECT user_id, username FROM organization'
-    organs = c.execute(q)
-    returner = {}
-    for i in organs:
-        returner[i[0]] = i[1]
-    return returner
-"""
-
 
 def make_donation(fname, lname, ctype, status, address, amount, owner, date, email, paytype, organ_id):
-    conn = sqlite3.connect("data.db")
+    conn = sqlite3.connect(databasepath)
     c = conn.cursor()
     q = 'CREATE TABLE IF NOT EXISTS donors (fname TEXT, lname TEXT, ctype TEXT, status TEXT, address TEXT, amount NUMERIC, owner TEXT, date TEXT, email TEXT, paytype TEXT, organ_id INT)'
     c.execute(q)
@@ -79,7 +63,7 @@ def make_donation(fname, lname, ctype, status, address, amount, owner, date, ema
 
 
 def get_donation(organ_id):
-    conn = sqlite3.connect("data.db")
+    conn = sqlite3.connect(databasepath)
     c = conn.cursor()
     q = 'SELECT name FROM sqlite_master WHERE TYPE = "table" AND NAME = "donors"'
     c.execute(q)
@@ -98,7 +82,7 @@ def get_donation(organ_id):
 
 
 def get_paypal_info(organ_id):
-    conn = sqlite3.connect("data.db")
+    conn = sqlite3.connect(databasepath)
     c = conn.cursor()
     q = 'SELECT name FROM sqlite_master WHERE TYPE = "table" AND NAME = "organization"'
     c.execute(q)
