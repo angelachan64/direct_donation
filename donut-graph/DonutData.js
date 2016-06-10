@@ -1,26 +1,18 @@
 var salesData=[
-    {label:"Basic", color:"#3366CC"},
-    {label:"Plus", color:"#DC3912"},
-    {label:"Lite", color:"#FF9900"},
-    {label:"Elite", color:"#109618"},
-    {label:"Delux", color:"#990099"}
+    {label:"Basic", color:"#3366CC", value: 133},
+    {label:"Plus", color:"#DC3912", value: 213},
+    {label:"Lite", color:"#FF9900", value: 123},
+    {label:"Elite", color:"#109618", value: 200},
+    {label:"Delux", color:"#990099", value: 100}
 ];
 
 var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
-
 svg.append("g").attr("id","salesDonut");
-svg.append("g").attr("id","quotesDonut");
 
 Donut3D.draw("salesDonut", randomData(), 150, 150, 130, 100, 30, 0.4);
-Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
-
-function changeData(){
-    Donut3D.transition("salesDonut", randomData(), 130, 100, 30, 0.4);
-    Donut3D.transition("quotesDonut", randomData(), 130, 100, 30, 0);
-}
 
 function randomData(){
     return salesData.map(function(d){ 
-	return {label:d.label, value:1000*Math.random(), color:d.color};});
+	return {label:d.label, value:d.value, color:d.color};});
 }
 
