@@ -1,7 +1,8 @@
 from flask import Flask, render_template, session
 from flask import redirect, url_for
 from flask import request, session, redirect
-import os.path, os.urandom
+import os.path
+from os import urandom
 import users
 import paypal
 
@@ -106,5 +107,5 @@ def transactions():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = os.urandom(32)
+    app.secret_key = urandom(32)
     app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
