@@ -1,0 +1,3 @@
+var colArray = $('#table1 td:nth-child(3)').map(function(){
+    return $(this).text();
+}).get()​;

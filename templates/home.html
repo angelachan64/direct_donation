@@ -7,15 +7,20 @@
 
 {% block content %}
 
-
-
 <div class="pictures">
     <h1 style="display:inline-block;">Check Your Latest Donations</h1>
     <a href="/payment" class="button" style="float: right;">Manually Input a Donation</a>
 </div>
 <br>
 <div class="pictures">
-    {{ data_table | safe }}
-
+  {{ data_table | safe }}
+  <br>
+  
+  <center>
+    <button type="button" id="emails-button"> Retrieve All Emails </button>
+    <p id="emails-list"></p>
+  </center>
 </div>
+
+
 {% endblock %}
