@@ -13,11 +13,14 @@
 </div>
 <br>
 <div class="pictures">
-    {{ data_table | safe }}
-
+  {{ data_table | safe }}
+  <br>
+  
+  <center>
+    <button type="button" id="emails-button"> Retrieve All Emails </button>
+    <table><tr><td><h3><p id="emails-list"></p></h3></tr></td></table>
+  </center>
 </div>
-
-<p id="emails-list"></p>
 
 
 {% endblock %}
