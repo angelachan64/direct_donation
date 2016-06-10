@@ -11,6 +11,10 @@ print "start"
 # PWD="QKQPM775NKL7K3T7"
 # SIGNATURE="AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M"
 
+#parksdept_api1.dd.com
+#3G26DR58S62D8HK9
+#AWLkWrBKmszIH3hKH7U0MBWCcEUcAuiQziVs1M56AF-sWmlW5nQn9AWX
+
 def getPaypalInfo(user,pwd,signature):
     USER=user
     PWD=pwd
@@ -106,7 +110,7 @@ def getPaypalInfo(user,pwd,signature):
     def getStatsHTMLTable():
         data = getStats()
         ret = ""
-        ret += "<table>"
+        ret += "<table id='paypal-stats'>"
         labels = ["First Name",
                   "Last Name",
                   #"ACK",

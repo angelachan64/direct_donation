@@ -59,7 +59,6 @@ def home():
         tabler = paypal.getPaypalInfo(l[0], l[1], l[2])
         tabler += users.get_donation(session["user"])
         return render_template("home.html", data_table=tabler)
-        #return render_template("home.html", data_table=paypal.getPaypalInfo("57leonardo-business_api1.gmail.com", "QKQPM775NKL7K3T7", "AgW.b-MmQ57G6jhdeFUMgx5wzIAbAiuDgpPYcm2mdI-X34PSFLi4DI9M")
     else:
         return render_template("login.html", loginerr="Please login first!")
 
