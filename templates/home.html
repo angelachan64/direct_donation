@@ -25,8 +25,9 @@
     <p id="emails-list"></p>
     <!-- Generate Donut Graph -->
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="../static/Donut3D.js"></script>
-    <script src="../static/DonutData.js"></script>
+    <script src="{{ url_for('static', filename='Donut3D.js') }}"></script>
+    <script src="{{ url_for('static', filename='DonutData.js') }}"></script>
+    
   </center>
 </div>
 {% endblock %}
