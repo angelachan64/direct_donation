@@ -2,9 +2,12 @@ import sqlite3  # Database
 from hashlib import sha512  # Hashing for Passwords
 from uuid import uuid4  # Salting for Passwords
 from re import search  # Regex
-import os.path
+import os
 
+secret_key = os.urandom(32)
 databasepath = os.path.join(os.path.dirname(__file__), "data.db")
+
+
 def create_user(username, password, repeat_pass, email, ppun, ppp, ppsig):
     conn = sqlite3.connect(databasepath)
     c = conn.cursor()

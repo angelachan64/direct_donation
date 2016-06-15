@@ -1,8 +1,6 @@
 import subprocess
 import urllib
 
-print "start"
-
 
 #######################################################
 # CHANGE THE FOLLOWING INFO FOR EVERY INDIVIDUAL USER #
@@ -15,14 +13,15 @@ print "start"
 #3G26DR58S62D8HK9
 #AWLkWrBKmszIH3hKH7U0MBWCcEUcAuiQziVs1M56AF-sWmlW5nQn9AWX
 
-def getPaypalInfo(user,pwd,signature):
-    USER=user
-    PWD=pwd
-    SIGNATURE=signature
-    STARTDATE="2015-01-01T0:0:0"
-    ENDDATE="2017-01-03T24:0:0"
 
-    TransactionSearch="""shell=true
+def getPaypalInfo(user, pwd, signature):
+    USER = user
+    PWD = pwd
+    SIGNATURE = signature
+    STARTDATE = "2015-01-01T0:0:0"
+    ENDDATE = "2017-01-03T24:0:0"
+
+    TransactionSearch = """shell=true
     curl https://api-3t.sandbox.paypal.com/nvp \
       -s \
       --insecure \
@@ -46,15 +45,13 @@ def getPaypalInfo(user,pwd,signature):
         for x in call.split("&"):
             data = x.split("=")
             if ("TRANSACTIONID" in data[0]):
-                d["transactionids"].append( data[1] )
-            d[ data[0] ] = data[1]
+                d["transactionids"].append(data[1])
+            d[data[0]] = data[1]
         return d
 
     #print parse_call(SearchCall)
     #print parse_call(SearchCall)["transactionids"]
-
-
-    GetTransactionDetails="""shell=true
+    GetTransactionDetails = """shell=true
     curl https://api-3t.sandbox.paypal.com/nvp \
       -s \
       --insecure \
@@ -129,21 +126,18 @@ def getPaypalInfo(user,pwd,signature):
             ret += "</th>"
         ret += "</tr>"
         for a in data[:-1]:
-            #ret += str(a) + "\n\n"
+            # ret += str(a) + "\n\n"
             ret += "<tr>"
             ret += "\n"
             for b in a:
                 if (b != "Error"):
-                    #ret += str(b) + " : " + str( a[b] ) + "\n"
+                    # ret += str(b) + " : " + str( a[b] ) + "\n"
                     ret += "<td>"
-                    ret += str( urllib.unquote(a[b]).decode('utf8') )
+                    ret += str(urllib.unquote(a[b]).decode('utf8'))
                     ret += "</td>"
                     ret += "\n"
             ret += "<td>Paypal</td></tr>"
             ret += "\n"
-        #ret += "</table>"
+        # ret += "</table>"
         return ret
-
     return getStatsHTMLTable()
-
-print "end"

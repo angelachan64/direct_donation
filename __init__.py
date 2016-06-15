@@ -7,14 +7,22 @@ import users
 import paypal
 
 app = Flask(__name__)
-indexfile = os.path.join(os.path.dirname(__file__), "index.html")
-loginfile = os.path.join(os.path.dirname(__file__), "login.html")
-homefile = os.path.join(os.path.dirname(__file__), "home.html")
+# """
+indexfile = "index.html"
+loginfile = "login.html"
+homefile = "home.html"
+paymentfile = "payment.html"
+"""
+indexfile = os.path.dirname(__file__) + "/template/index.html"
+loginfile = os.path.dirname(__file__) + "/template/login.html"
+homefile = os.path.dirname(__file__) + "/template/home.html"
+paymentfile = os.path.dirname(__file__) + "/template/payment.html"
+"""
+
 
 @app.route("/")
 def index():
     session["user"] = -1
-    print indexfile
     return render_template(indexfile)
 
 
@@ -23,11 +31,10 @@ def login():
     if request.method == "GET":
         return render_template(loginfile)
     else:
-        print "POST"
         if "username" in request.form:
             username = request.form["username"]
             password = request.form["password"]
-            user_id =  users.valid_login(username, password)
+            user_id = users.valid_login(username, password)
             if user_id >= 0:
                 session["user"] = user_id
                 return redirect(url_for("home"))
@@ -35,7 +42,6 @@ def login():
                 return render_template(loginfile,
                                        loginerr="Incorrect Username or Password")
         elif "new_username" in request.form:
-            print "CREATE"
             username = request.form["new_username"]
             password = request.form["new_password"]
             repeat = request.form["repeat"]
@@ -43,16 +49,13 @@ def login():
             ppun = request.form["ppun"]
             ppp = request.form["ppp"]
             ppsig = request.form["ppsig"]
-            print "Values"
             creator = users.create_user(username, password, repeat, email,
                                         ppun, ppp, ppsig)
             print creator
             if creator[0]:
-                print "C[0]"
                 session["user"] = users.valid_login(username, password)
                 return redirect(url_for("home"))
             else:
-                print "C[1]"
                 return render_template(loginfile, signuperr=creator[1])
 
 
@@ -71,7 +74,7 @@ def home():
 def payment():
     if "user" in session and session["user"] > -1:
         if request.method == "GET":
-            return render_template("payment.html")
+            return render_template(paymentfile)
         else:
             #THE INFO COLLECTED FOR PAYMENT
             fname = request.form["fname"]
@@ -91,6 +94,7 @@ def payment():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = urandom(32)
+    # app.secret_key = urandom(32)
+    app.secret_key = users.secret_key
     app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
-    #app.run()
+    # app.run()
