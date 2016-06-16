@@ -7,6 +7,7 @@ import users
 import paypal
 
 app = Flask(__name__)
+app.secret_key = urandom(24)
 # """
 indexfile = "index.html"
 loginfile = "login.html"
@@ -92,9 +93,10 @@ def payment():
     else:
         return render_template(loginfile, loginerr="Please login first!")
 
+
 if __name__ == "__main__":
     app.debug = True
     # app.secret_key = urandom(32)
-    app.secret_key = users.secret_key
-    app.run('0.0.0.0', 8080 if os.path.isfile('./cloudy') else 8000)
+    # app.secret_key = users.secret_key
+    app.run('0.0.0.0', 8000)
     # app.run()
